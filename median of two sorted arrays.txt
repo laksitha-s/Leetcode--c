@@ -1,0 +1,16 @@
+Task:
+
+Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
+
+The overall run time complexity should be O(log (m+n)).
+
+
+code:
+
+double findMedianSortedArrays(int* nums1, int nums1Size, int* nums2, int nums2Size) {
+    int num1 = 0;
+    int num2 = 0;
+
+    int *res = (int*)malloc((nums1Size+nums2Size)*sizeof(int));
+    int ind = 0;
+    int len_res = nums1Size+nums2Size;
