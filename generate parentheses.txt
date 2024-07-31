@@ -1,0 +1,39 @@
+TASK:
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+CODE:
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void generateParenthesisHelper(int n, int open, int close, char* current, int pos, char** result, int* returnSize) {
+    if (pos == 2 * n) {
+        result[*returnSize] = (char*)malloc((2 * n + 1) * sizeof(char));
+        strcpy(result[*returnSize], current);
+        (*returnSize)++;
+        return;
+    }
+    
+    if (open < n) {
+        current[pos] = '(';
+        generateParenthesisHelper(n, open + 1, close, current, pos + 1, result, returnSize);
+    }
+    
+    if (close < open) {
+        current[pos] = ')';
+        generateParenthesisHelper(n, open, close + 1, current, pos + 1, result, returnSize);
+    }
+}
+
+char** generateParenthesis(int n, int* returnSize) {
+    int maxSize = 1 << (2 * n);
+    char** result = (char**)malloc(maxSize * sizeof(char*));
+    *returnSize = 0;
+    char* current = (char*)malloc((2 * n + 1) * sizeof(char));
+    current[2 * n] = '\0';
+    
+    generateParenthesisHelper(n, 0, 0, current, 0, result, returnSize);
+    
+    free(current);
+    return result;
+}
