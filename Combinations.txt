@@ -1,0 +1,19 @@
+DESCRIPTION:
+Given two integers n and k, return all possible combinations of k numbers chosen from the range [1, n].
+You may return the answer in any order.
+
+CODE:
+
+/**
+ * @param {number} n
+ * @param {number} k
+ * @return {number[][]}
+ */
+var combine = function ( n, k, start=1 ) {
+    let resp = [];
+    while ( start <= n ) {
+        if ( k === 1 ) resp.push([start++]); 
+        else resp = resp.concat(combine(n, k - 1, ++start).map(item => [start - 1, ...item]));
+    }
+    return resp;
+};
